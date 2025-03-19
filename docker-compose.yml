@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: petclinic
+      POSTGRES_USER: petclinic_user
+      POSTGRES_PASSWORD: petclinic_password
+    ports:
+      - "5432:5432"
+    volumes:
+    
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/db/postgres/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  app:
+    build: .
+    container_name: spring_app
+    restart: always
+    environment:
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/petclinic  # Buraya PostgreSQL URL'sini ekledik!
+      POSTGRES_USER: petclinic_user
+      POSTGRES_PASS: petclinic_password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: ["java", "-jar", "app.jar", "--spring.profiles.active=postgres"]
+
+volumes:
+  postgres_data:
