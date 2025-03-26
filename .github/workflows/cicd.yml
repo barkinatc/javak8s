@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest #build id number 
     steps:
       - name: Kodu Checkout Et
         uses: actions/checkout@v4.2.2
@@ -22,3 +22,4 @@ jobs:
         run: docker push barkinatici/app:latest
 
 
+#rke2 de master worker node ile cd kısmını hallet .

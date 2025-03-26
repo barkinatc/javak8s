@@ -1,16 +1,23 @@
+# burada gradle ve jdk17 kullanarak build aşaması başlatıyoruz
+FROM gradle:7.6.2-jdk17 AS build  
 
-FROM gradle:7.6.2-jdk17 AS build
+# çalışma dizinini /app olarak ayarlıyoruz
+WORKDIR /app  
 
-WORKDIR /app
+# mevcut dizindeki tüm dosyaları konteynıra kopyalıyoruz
+COPY . .  
 
-COPY . .
+# gradle ile build işlemini yapıyoruz, testleri dışarıda bırakıyoruz
+RUN gradle build -x test  
 
-RUN gradle build -x test
+# ikinci aşama için daha hafif olan openjdk 17 slim imajını kullanıyoruz
+FROM openjdk:17-jdk-slim  
 
-FROM openjdk:17-jdk-slim
+# tekrar çalışma dizinini /app olarak ayarlıyoruz
+WORKDIR /app  
 
-WORKDIR /app
+# build aşamasından jar dosyasını kopyalıyoruz
+COPY --from=build /app/build/libs/*.jar app.jar  
 
-COPY --from=build /app/build/libs/*.jar app.jar
-
-CMD ["java", "-jar", "app.jar"]
+# son olarak app.jar dosyasını çalıştırıyoruz
+CMD ["java", "-jar", "app.jar"]  

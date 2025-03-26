@@ -30,6 +30,11 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: POSTGRES_PASSWORD
+          resources:
+            requests:
+              ephemeral-storage: "500Mi"
+            limits:
+              ephemeral-storage: "1Gi"
 ---
 apiVersion: v1
 kind: Service
@@ -41,7 +46,6 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 8080      
-      targetPort: 8080  
-      nodePort: 32000  
-
+      port: 8080
+      targetPort: 8080
+      nodePort: 32000

@@ -20,7 +20,7 @@ services:
     container_name: spring_app
     restart: always
     environment:
-      POSTGRES_URL: jdbc:postgresql://postgres:5432/petclinic  # Buraya PostgreSQL URL'sini ekledik!
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/petclinic  # postgresql urlsi
       POSTGRES_USER: petclinic_user
       POSTGRES_PASS: petclinic_password
     ports:
