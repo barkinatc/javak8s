@@ -17,7 +17,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app  
 
 # build aşamasından jar dosyasını kopyalıyoruz
-COPY --from=build /app/build/libs/*.jar app.jar  
+COPY --from=build /app/build/libs/*.jar ./
+ 
 
 # son olarak app.jar dosyasını çalıştırıyoruz
 CMD ["java", "-jar", "app.jar"]  
