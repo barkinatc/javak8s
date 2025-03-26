@@ -31,6 +31,7 @@ jobs:
 
       - name: RKE2 deploy
         run: |
+          export PATH=$PATH:/var/lib/rancher/rke2/bin
           export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
           kubectl apply -f configmap.yaml
           kubectl apply -f pv-pvc.yaml
