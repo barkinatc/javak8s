@@ -22,4 +22,20 @@ jobs:
         run: docker push barkinatici/app:latest
 
 
-#rke2 de master worker node ile cd kısmını hallet 
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-push
+    steps:
+      - name: Kodu Checkout Et
+        uses: actions/checkout@v4.2.2
+
+      - name: RKE2 deploy
+        run: |
+          # export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+          kubectl apply -f configmap.yaml
+          kubectl apply -f pv-pvc.yaml
+          kubectl apply -f secret.yaml
+          kubectl create configmap postgres-init-script --from-file=src/main/resources/db/postgres/schema.sql
+          kubectl apply -f postgres-deployment.yaml
+          kubectl rollout status deployment postgres --timeout=1000s
+          kubectl apply -f app-deployment.yaml
