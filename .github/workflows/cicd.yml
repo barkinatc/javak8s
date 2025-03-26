@@ -22,4 +22,4 @@ jobs:
         run: docker push barkinatici/app:latest
 
 
-#rke2 de master worker node ile cd kısmını hallet .
+#rke2 de master worker node ile cd kısmını hallet 
