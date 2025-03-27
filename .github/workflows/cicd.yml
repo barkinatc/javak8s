@@ -36,6 +36,7 @@ jobs:
           kubectl apply -f configmap.yaml
           kubectl apply -f pv-pvc.yaml
           kubectl apply -f secret.yaml
+          kubectl delete configmap postgres-init-script || true
           kubectl create configmap postgres-init-script --from-file=src/main/resources/db/postgres/schema.sql
           kubectl apply -f postgres-deployment.yaml
           kubectl rollout status deployment postgres --timeout=1000s
