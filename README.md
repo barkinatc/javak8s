@@ -67,3 +67,5 @@ This document provides instructions for dockerizing your application, configurin
 
 This setup ensures that changes to the main branch automatically trigger secure, efficient CI/CD processes via self-hosted runners.
 
+ödev:
+image build id tagleyip registry i private çekip image pull secret ile pull edelim. git hub actions runner ı service olarak kulllanalım. linuxda root dosya sistemini öğren. helm template oluştur yamllar için.kube prometheus grafana name space içine monitöring kur.
