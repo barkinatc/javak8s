@@ -12,6 +12,8 @@ spec:
       labels:
         app: spring-app
     spec:
+      imagePullSecrets:        # image pull için 
+        - name: regcred
       containers:
         - name: spring-app
           image: barkinatici/app

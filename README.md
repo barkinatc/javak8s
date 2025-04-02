@@ -69,3 +69,11 @@ This setup ensures that changes to the main branch automatically trigger secure,
 
 ödev:
 image build id tagleyip registry i private çekip image pull secret ile pull edelim. git hub actions runner ı service olarak kulllanalım. linuxda root dosya sistemini öğren. helm template oluştur yamllar için.kube prometheus grafana name space içine monitöring kur.
+
+
+kubectl create secret docker-registry regcred \
+  --docker-server=https://index.docker.io/v1/ \
+  --docker-username=barkinatici \
+  --docker-password=eskidendi12 \
+  --docker-email=brknatici@hotmail.com \
+  --dry-run=client -o yaml > image-pull-secret.yaml
