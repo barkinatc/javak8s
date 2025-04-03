@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: barkinatici/app
+  tag: "123"         
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: regcred
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 32000
+
+postgres:
+  image: postgres
+  tag: latest
+  pvc: postgres-pvc
+  configMap: postgres-config
+  secret: postgres-secret
+  initScript: postgres-init-script
+  servicePort: 5432
+  url: "jdbc:postgresql://postgres:5432/petclinic"
+  user: petclinic_user
+  password: petclinic_password
+
+  db: petclinic

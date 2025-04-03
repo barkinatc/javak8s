@@ -32,19 +32,36 @@ jobs:
       - name: Kodu Checkout Et2
         uses: actions/checkout@v4.2.2
 
-      - name: RKE2 deploy
+      - name: helm deploy
         run: |
           export PATH=$PATH:/var/lib/rancher/rke2/bin
           export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
-          kubectl apply -f configmap.yaml
-          kubectl apply -f pv-pvc.yaml
-          kubectl apply -f secret.yaml
-          kubectl delete configmap postgres-init-script || true
-          kubectl create configmap postgres-init-script --from-file=src/main/resources/db/postgres/schema.sql
-          kubectl apply -f postgres-deployment.yaml
-          kubectl rollout status deployment postgres --timeout=1000s
-          kubectl set image deployment/spring-app spring-app=barkinatici/app:${{ env.IMAGE_TAG }}
-          kubectl apply -f app-deployment.yaml
+          helm upgrade --install myapp ./mychart \
+          --set image.tag=${{ env.IMAGE_TAG }}
 
+      - name:  wait postgres
+        run: |
+          export PATH=$PATH:/var/lib/rancher/rke2/bin
+          export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+          kubectl rollout status deployment/postgres --timeout=1000s
 
-          
+#  deploy:
+#     runs-on: self-hosted
+#     needs: build-and-push
+#     steps:
+#       - name: Kodu Checkout Et2
+#         uses: actions/checkout@v4.2.2
+
+#       - name: RKE2 deploy
+#         run: |
+#           export PATH=$PATH:/var/lib/rancher/rke2/bin
+#           export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+#           kubectl apply -f configmap.yaml
+#           kubectl apply -f pv-pvc.yaml
+#           kubectl apply -f secret.yaml
+#           kubectl delete configmap postgres-init-script || true
+#           kubectl create configmap postgres-init-script --from-file=src/main/resources/db/postgres/schema.sql
+#           kubectl apply -f postgres-deployment.yaml
+#           kubectl rollout status deployment postgres --timeout=1000s
+#           kubectl set image deployment/spring-app spring-app=barkinatici/app:${{ env.IMAGE_TAG }}
+#           kubectl apply -f app-deployment.yaml
