@@ -33,7 +33,8 @@ spec:
             claimName: {{ .Values.postgres.pvc }}
         - name: init-scripts
           configMap:
-            name: {{ .Values.postgres.initScript }}
+            name: postgres-init-script
+            
 ---
 apiVersion: v1
 kind: Service
