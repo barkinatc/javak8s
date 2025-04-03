@@ -39,11 +39,11 @@ jobs:
           helm upgrade --install myapp ./mychart \
           --set image.tag=${{ env.IMAGE_TAG }}
 
-      - name:  wait postgres
-        run: |
-          export PATH=$PATH:/var/lib/rancher/rke2/bin
-          export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
-          kubectl rollout status deployment/postgres --timeout=1000s
+      # - name:  wait postgres
+      #   run: |
+      #     export PATH=$PATH:/var/lib/rancher/rke2/bin
+      #     export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+      #     kubectl rollout status deployment/postgres --timeout=1000s
 
 #  deploy:
 #     runs-on: self-hosted
