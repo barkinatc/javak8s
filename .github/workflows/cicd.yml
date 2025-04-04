@@ -19,6 +19,7 @@ jobs:
         run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: isim
         run: |
+          chmod +x gradlew
           ./gradlew build -x test
           echo "---- JAR FILE ----"
           ls build/libs
