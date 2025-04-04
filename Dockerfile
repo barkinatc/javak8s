@@ -17,7 +17,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app  
 
 # build aşamasından jar dosyasını kopyalıyoruz
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/petclinic-0.0.1-SNAPSHOT.jar app.jar
 
  
 
