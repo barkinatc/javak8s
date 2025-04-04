@@ -21,4 +21,4 @@ COPY --from=build /app/build/libs/*.jar ./
  
 
 # son olarak app.jar dosyasını çalıştırıyoruz
-CMD ["java", "-jar", "app.jar"]  
+CMD ["java", "-jar", "petclinic-0.0.1-SNAPSHOT.jar"]  
