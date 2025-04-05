@@ -19,6 +19,7 @@ WORKDIR /app
 
 
 # build aşamasından jar dosyasını kopyalıyoruz
-RUN cp /app/build/libs/*.jar /app/app.jar  
+COPY --from=build /app/build/libs/spring-petclinic-3.2.0.jar app.jar
+
 # son olarak app.jar dosyasını çalıştırıyoruz
 CMD ["java", "-jar", "app.jar"]  
