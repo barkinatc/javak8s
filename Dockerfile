@@ -16,9 +16,9 @@ FROM openjdk:17-jdk-slim
 # tekrar çalışma dizinini /app olarak ayarlıyoruz
 WORKDIR /app  
 
+
 # build aşamasından jar dosyasını kopyalıyoruz
-COPY --from=build /app/build/libs/*.jar ./
- 
+COPY --from=build /app/build/libs/*.jar app.jar  
 
 # son olarak app.jar dosyasını çalıştırıyoruz
-CMD ["java", "-jar", "petclinic-0.0.1-SNAPSHOT.jar"]  
+CMD ["java", "-jar", "app.jar"]  
