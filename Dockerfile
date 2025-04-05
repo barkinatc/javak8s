@@ -18,7 +18,6 @@ WORKDIR /app
 
 
 # build aşamasından jar dosyasını kopyalıyoruz
-COPY --from=build /app/build/libs/*.jar app.jar  
-
+RUN cp /app/build/libs/*.jar /app/app.jar  
 # son olarak app.jar dosyasını çalıştırıyoruz
 CMD ["java", "-jar", "app.jar"]  
