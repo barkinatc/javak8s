@@ -9,6 +9,7 @@ COPY . .
 
 # gradle ile build işlemini yapıyoruz, testleri dışarıda bırakıyoruz
 RUN gradle build -x test  
+RUN ls -la /app/build/libs
 
 # ikinci aşama için daha hafif olan openjdk 17 slim imajını kullanıyoruz
 FROM openjdk:17-jdk-slim  
